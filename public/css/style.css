@@ -1,0 +1,143 @@
+.sidebar-dark-primary {
+    /*background-color: rgb(31 41 55 / 1)!important;*/
+    background-color: rgb(201, 98, 98)!important;
+}
+
+.card-header{
+    background-color: rgb(31 41 55 / 1);
+}
+
+.btn-dt{
+    color: white !important;
+    background-color: rgb(201, 98, 98)!important;
+    border-color:rgb(201, 98, 98)!important;
+    font-weight: 400 !important;
+    font-size: .8125rem !important;
+}
+
+.btn-dt-success{
+    color: #fff !important;
+    background-color:#0ab39c !important;
+    border-color: #0ab39c !important;
+    font-weight: 400 !important;
+    font-size: .8125rem !important;
+}
+
+.btn-dt-info {
+    color: #fff !important;
+    background-color: #299cdb !important;
+    border-color: #299cdb !important;
+    font-weight: 400 !important;
+    font-size: .8125rem !important;
+}
+
+.btn-dt-warning {
+    color: #fff !important;
+    background-color: #f7b84b !important;
+    border-color: #f7b84b !important;
+    font-weight: 400 !important;
+    font-size: .8125rem !important;
+}
+
+.btn-dt-danger {
+    color: #fff !important;
+    background-color: #f7574b !important;
+    border-color: #f7574b !important;
+    font-weight: 400 !important;
+    font-size: .8125rem !important;
+}
+
+.dataTables_length{
+    text-align: right;
+    float: right !important;
+}
+
+.nav-sidebar > .nav-item {
+> .nav-link.active {
+        background-color: #dc3545 !important;
+    }
+}
+
+.page-item.active .page-link {
+    color: black;
+    background-color: white !important;
+    border-color: white !important;
+}
+
+.select2-container .select2-selection--single {
+    height: calc(1.8125rem + 2px) !important;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    padding-left: .1rem;
+    font-size: 75%;
+  }
+
+.select2-selection {
+    line-height: 20px !important;
+    font-size: .875rem;
+}
+
+.select2-selection__arrow {
+    height: 34px !important;
+}
+
+.form-group {
+    margin-bottom: .4rem;
+}
+
+.cropper-view-box,
+.cropper-face {
+    border-radius: 50%;
+}
+
+/* The css styles for `outline` do not follow `border-radius` on iOS/Safari (#979). */
+.cropper-view-box {
+    outline: 0;
+    box-shadow: 0 0 0 1px #39f;
+}
+
+
+.bg-image {
+    /* The image used */
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: block;
+    background-image:  url("/img/fondo.jpg");
+
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+
+  .login-box {
+    position: flex;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .login-box .login-box-content {
+    min-width: 0;
+    flex-grow: 1;
+  }
+
+.pac-container {
+    z-index: 1056 !important;
+}
+
+.card-body-gray{
+    background-color: lightgrey;
+}
