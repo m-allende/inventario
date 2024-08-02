@@ -418,7 +418,9 @@
             btnSave.click(function(e) {
                 e.preventDefault();
                 let data = form.serialize();
-                data += "&detail=" + JSON.stringify(arrProducts);
+                data += "&products=" + JSON.stringify(arrProducts);
+                data += "&services=" + JSON.stringify(arrServices);
+                data += "&promotions=" + JSON.stringify(arrPromotions);
                 $.ajax({
                     type: "POST",
                     url: "{{ route('sale.store') }}",
@@ -710,34 +712,40 @@
                 total_sale += Math.round(total);
 
 
-                data.products.forEach(element => {
+                let detail = "<b>Productos:</b><br> ";
+                data[0].products.forEach(element => {
+                    detail += "-" + element.name + " / " + element.code + "<br>";
                     let arrProduct = [element.id, element.pivot.quantity, 0, 0];
                     arrProducts.push(arrProduct);
                 });
 
-                data.services.forEach(element => {
+                detail += "<b>Servicios:</b><br> ";
+                data[0].services.forEach(element => {
+                    detail += "-" + element.name + " / " + element.code + "<br>";
                     let arrService = [element.id, element.pivot.quantity, 0, 0];
                     arrServices.push(arrService);
                 });
 
                 let arrPromotion = [promotion_id, quantity, price, total];
-                arrPromotion.push(arrPromotion);
+                arrPromotions.push(arrPromotion);
 
                 ///actualizo totales
                 updateTotal();
                 //limpio detalle
                 clearDetail()
 
-                var htmlTags = '<tr id="tr_' + product_id + '">' +
-                    '<td>' + product_id + '</td>' +
-                    '<td>' + product_name + '<br><b>Código:</b>' + code + '/<b>Marca:</b>' + brand + '</td>' +
+                var htmlTags = '<tr id="tr_pr_' + promotion_id + '">' +
+                    '<td>' + promotion_id + '</td>' +
+                    '<td>' + promotion_name + '<br><b>Código:</b>' + code + '/<b><br>Detalle:</b><br>' + detail +
+                    '</td>' +
                     '<td class="text-right">' + quantity + '</td>' +
                     '<td class="text-right">$' + parseFloat(price).toLocaleString("de-DE") + '</td>' +
-                    '<td class="text-right"><input type="hidden" id="total_product_' + product_id + '" value="' +
+                    '<td class="text-right"><input type="hidden" id="total_promotion_' + promotion_id +
+                    '" value="' +
                     total +
                     '"> $' + parseFloat(total).toLocaleString("de-DE") + '</td>' +
-                    '<td class="text-center"><button class="btn btn-delete-product" type="button" data-param1="' +
-                    product_id + '"><i class="fa-solid fa-trash"></i></button></td>' +
+                    '<td class="text-center"><button class="btn btn-delete-promotion" type="button" data-param1="' +
+                    promotion_id + '"><i class="fa-solid fa-trash"></i></button></td>' +
                     '</tr>';
 
                 $('#sale tbody').append(htmlTags);

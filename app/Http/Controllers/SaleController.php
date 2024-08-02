@@ -47,6 +47,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         DB::beginTransaction();
         try {
             $date = explode("-",$request["date"]);
