@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('promotion_sale', function (Blueprint $table) {
             $table->unsignedBigInteger('sale_id');
             $table->unsignedBigInteger('promotion_id');
+            $table->integer("quantity")->default(1);
             $table->integer("price")->default(0);
+            $table->integer("total")->default(0);
             $table->foreign('sale_id')->references('id')->on('sales');
             $table->foreign('promotion_id')->references('id')->on('promotions');
         });
@@ -22,7 +24,9 @@ return new class extends Migration
         Schema::create('service_sale', function (Blueprint $table) {
             $table->unsignedBigInteger('sale_id');
             $table->unsignedBigInteger('service_id');
+            $table->integer("quantity")->default(1);
             $table->integer("price")->default(0);
+            $table->integer("total")->default(0);
             $table->foreign('sale_id')->references('id')->on('sales');
             $table->foreign('service_id')->references('id')->on('services');
         });
