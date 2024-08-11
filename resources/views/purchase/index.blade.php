@@ -347,7 +347,7 @@
                 var rowData = table.row($(this).parents('tr')).data()
                 changeScreen(true);
                 clearTable();
-                clearDetail(true);
+                clearDetail();
 
                 form.find('input[name="id"]').val(rowData.id)
 
@@ -450,9 +450,8 @@
                 neto_purchase = 0;
                 iva_purchase = 0;
                 total_purchase = 0;
-                arrProducts = [];
                 updateTotal();
-                clearDetail(true);
+                clearDetail();
                 clearTable();
                 changeScreen(false);
             }
@@ -511,7 +510,7 @@
                 ///actualizo totales
                 updateTotal();
                 //limpio detalle
-                clearDetail(false)
+                clearDetail()
 
                 var htmlTags = '<tr id="tr_' + product_id + '">' +
                     '<td>' + product_id + '</td>' +
@@ -538,10 +537,8 @@
                 $("#total_purchase").html("$" + parseFloat(total_purchase).toLocaleString("de-DE"));
             }
 
-            function clearDetail(opc) {
-                if (opc) {
-                    $('#supplier_id').val(null).trigger('change');
-                }
+            function clearDetail() {
+                $('#supplier_id').val(null).trigger('change');
                 $('#product_id_det').val(null).trigger('change');
                 $("#quantity_det").val("");
                 $("#price_det").val("");
