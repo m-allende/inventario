@@ -32,10 +32,20 @@ class Sale extends Model
     }
 
     public function services(){
-        return $this->belongsToMany(Service::class, 'service_sale')->withPivot('price');
+        return $this->belongsToMany(Service::class, 'service_sale')->withPivot('total', 'price', 'quantity');
     }
 
     public function promotions(){
-        return $this->belongsToMany(Promotion::class, 'promotion_sale')->withPivot('price');
+        return $this->belongsToMany(Promotion::class, 'promotion_sale')->withPivot('total', 'price', 'quantity');
+    }
+
+    public function observations()
+    {
+        return $this->morphMany(Observation::class, "parent");
+    }
+
+    public function lastObservation()
+    {
+        return $this->morphOne(Observation::class, "parent")->latestOfMany();
     }
 }

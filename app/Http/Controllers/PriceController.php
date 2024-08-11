@@ -98,12 +98,23 @@ class PriceController extends Controller
         if($request["price"] == null || $request["price"] == ""){
             $request["price"] = 0;
         }
-        Price::find($price->id)->update($request->all());
+        DB::beginTransaction();
+        try {
+            Price::find($price->id)->update($request->all());
 
-        return response()->json([
-            'status' => 200,
-            'errors' => '',
-        ]);
+            DB::commit();
+
+            return response()->json([
+                'status' => 200,
+                'errors' => '',
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'status' => 400,
+                'errors' => $e->getMessage()
+            ]);
+        }
     }
 
     /**

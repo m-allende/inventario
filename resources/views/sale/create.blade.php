@@ -5,6 +5,7 @@
 @section('content_header')
     <h1>Crear Venta</h1>
 @endsection
+
 @section('content')
     <div class="row">
         <div class="col-1"></div>

@@ -6,13 +6,6 @@
 
 @stop
 
-@section('css')
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.css"
-        integrity="sha512-ClXpwbczwauhl7XC16/EFu3grIlYTpqTYOwqwAi7rNSqxmTqCpE8VS3ovG+qi61GoxSLnuomxzFXDNcPV1hvCQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-@endsection
-
 @section('content')
     <div class="row">
         <div class="col-sm-6">

@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="row justify-content-md-center">
-        <div class="col">
+        <div class="col-12">
             <div class="card card-secondary">
                 <div class="card-header sidebar-dark-primary">
                     <h2 class="card-title">Marcas</h2>

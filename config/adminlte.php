@@ -154,9 +154,9 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
+    'layout_fixed_sidebar' => ['xs' => true],
     'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
+    'layout_fixed_footer' => ['xs' => true],
     'layout_dark_mode' => null,
 
     /*
@@ -214,13 +214,13 @@ return [
     |
     */
 
-    'sidebar_mini' => 'lg',
+    'sidebar_mini' => 'xs',
     'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => true,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
-    'sidebar_scrollbar_auto_hide' => 'l',
+    'sidebar_scrollbar_auto_hide' => 'n',
     'sidebar_nav_accordion' => true,
     'sidebar_nav_animation_speed' => 300,
 
@@ -301,7 +301,18 @@ return [
         ],[
             'text'    => 'Ventas',
             'icon'    => 'nav-icon fa-solid fa-money-bill',
-            'url'     => 'sale',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Ventas',
+                    'url'  => 'sale',
+                    'icon' => 'nav-icon far fa-circle',
+                ],
+                [
+                    'text' => 'Crear Venta',
+                    'url'  => 'sale/create',
+                    'icon' => 'nav-icon far fa-circle',
+                ],
+            ]
         ],[
             'text'    => 'Precios',
             'icon'    => 'nav-icon fa-solid fa-dollar-sign',

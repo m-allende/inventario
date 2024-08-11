@@ -13,7 +13,8 @@
                 <div class="card-header sidebar-dark-primary">
                     <h2 class="card-title">Ventas</h2>
                     <div class="text-right">
-                        <button class="btn btn-dt add"><i class="fa fa-plus"></i> Agregar Venta</button>
+                        <a href="{{ route('sale.create') }} "><button class="btn btn-dt"><i class="fa fa-plus"></i> Agregar
+                                Venta</button></a>
                     </div>
                 </div>
                 <div class="card-body pb-1 mt-2">
@@ -93,6 +94,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="number">Descripción de lo realizado</label>
+                                            <textarea class="form-control" name="observation" id="observation" cols="30" rows="5"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -101,133 +108,138 @@
                                 <h2 class="card-title">Detalle de Compra</h2>
                             </div>
                             <div class="card-body card-body-gray">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="promotion_id_det">Promoción</label>
-                                            <select id="promotion_id_det" name="promotion_id_det"
-                                                class="form-control select2 select2-danger select2-promotion"
-                                                data-dropdown-css-class="select2-danger" style="width: 100%;" tabindex="-1"
-                                                aria-hidden="true">
-                                            </select>
+                                <div id="detail_sale">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="promotion_id_det">Promoción</label>
+                                                <select id="promotion_id_det" name="promotion_id_det"
+                                                    class="form-control select2 select2-danger select2-promotion"
+                                                    data-dropdown-css-class="select2-danger" style="width: 100%;"
+                                                    tabindex="-1" aria-hidden="true">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="promotion_price_det">Precio Venta</label>
+                                                <input type="text" name="promotion_price_det" id="promotion_price_det"
+                                                    class="form-control form-control-sm input-sm text-right number">
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <div class="form-group">
+                                                <label for="promotion_quantity_det">Cantidad</label>
+                                                <input type="text" name="promotion_quantity_det"
+                                                    id="promotion_quantity_det" value="1"
+                                                    class="form-control form-control-sm input-sm text-right number">
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="promotion_total_det">Total</label>
+                                                <input type="text" name="promotion_total_det" id="promotion_total_det"
+                                                    class="form-control form-control-sm input-sm text-right number">
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <br>
+                                            <div class="form-group">
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary btn-add-promotion">Agregar</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label for="promotion_price_det">Precio Venta</label>
-                                            <input type="text" name="promotion_price_det" id="promotion_price_det"
-                                                class="form-control form-control-sm input-sm text-right number">
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="service_id_det">Servicio</label>
+                                                <select id="service_id_det" name="service_id_det"
+                                                    class="form-control select2 select2-danger select2-service"
+                                                    data-dropdown-css-class="select2-danger" style="width: 100%;"
+                                                    tabindex="-1" aria-hidden="true">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="service_price_det">Precio Venta</label>
+                                                <input type="text" name="service_price_det" id="service_price_det"
+                                                    class="form-control form-control-sm input-sm text-right number">
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <div class="form-group">
+                                                <label for="service_quantity_det">Cantidad</label>
+                                                <input type="text" name="service_quantity_det"
+                                                    id="service_quantity_det" value="1"
+                                                    class="form-control form-control-sm input-sm text-right number">
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="service_total_det">Total</label>
+                                                <input type="text" name="service_total_det" id="service_total_det"
+                                                    class="form-control form-control-sm input-sm text-right number">
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <br>
+                                            <div class="form-group">
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary btn-add-service">Agregar</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-1">
-                                        <div class="form-group">
-                                            <label for="promotion_quantity_det">Cantidad</label>
-                                            <input type="text" name="promotion_quantity_det"
-                                                id="promotion_quantity_det" value="1"
-                                                class="form-control form-control-sm input-sm text-right number">
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label for="product_id_det">Producto</label>
+                                                <select id="product_id_det" name="product_id_det"
+                                                    class="form-control select2 select2-danger select2-product"
+                                                    data-dropdown-css-class="select2-danger" style="width: 100%;"
+                                                    tabindex="-1" aria-hidden="true">
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label for="promotion_total_det">Total</label>
-                                            <input type="text" name="promotion_total_det" id="promotion_total_det"
-                                                class="form-control form-control-sm input-sm text-right number">
+                                        <div class="col-1">
+                                            <div class="form-group">
+                                                <label for="stock_det">Stock</label>
+                                                <input type="text" name="stock_det" id="stock_det"
+                                                    readonly="readonly"
+                                                    class="form-control form-control-sm input-sm text-right">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-1">
-                                        <br>
-                                        <div class="form-group">
-                                            <button type="button"
-                                                class="btn btn-sm btn-primary btn-add-promotion">Agregar</button>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="price_det">Precio Venta</label>
+                                                <input type="text" name="price_det" id="price_det"
+                                                    class="form-control form-control-sm input-sm text-right number">
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="service_id_det">Servicio</label>
-                                            <select id="service_id_det" name="service_id_det"
-                                                class="form-control select2 select2-danger select2-service"
-                                                data-dropdown-css-class="select2-danger" style="width: 100%;"
-                                                tabindex="-1" aria-hidden="true">
-                                            </select>
+                                        <div class="col-1">
+                                            <div class="form-group">
+                                                <label for="quantity_det">Cantidad</label>
+                                                <input type="text" name="quantity_det" id="quantity_det"
+                                                    value="1"
+                                                    class="form-control form-control-sm input-sm text-right number">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label for="service_price_det">Precio Venta</label>
-                                            <input type="text" name="service_price_det" id="service_price_det"
-                                                class="form-control form-control-sm input-sm text-right number">
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="total_det">Total</label>
+                                                <input type="text" name="total_det" id="total_det"
+                                                    class="form-control form-control-sm input-sm text-right number">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-1">
-                                        <div class="form-group">
-                                            <label for="service_quantity_det">Cantidad</label>
-                                            <input type="text" name="service_quantity_det" id="service_quantity_det"
-                                                value="1"
-                                                class="form-control form-control-sm input-sm text-right number">
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label for="service_total_det">Total</label>
-                                            <input type="text" name="service_total_det" id="service_total_det"
-                                                class="form-control form-control-sm input-sm text-right number">
-                                        </div>
-                                    </div>
-                                    <div class="col-1">
-                                        <br>
-                                        <div class="form-group">
-                                            <button type="button"
-                                                class="btn btn-sm btn-primary btn-add-service">Agregar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="form-group">
-                                            <label for="product_id_det">Producto</label>
-                                            <select id="product_id_det" name="product_id_det"
-                                                class="form-control select2 select2-danger select2-product"
-                                                data-dropdown-css-class="select2-danger" style="width: 100%;"
-                                                tabindex="-1" aria-hidden="true">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-1">
-                                        <div class="form-group">
-                                            <label for="stock_det">Stock</label>
-                                            <input type="text" name="stock_det" id="stock_det" readonly="readonly"
-                                                class="form-control form-control-sm input-sm text-right">
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label for="price_det">Precio Venta</label>
-                                            <input type="text" name="price_det" id="price_det"
-                                                class="form-control form-control-sm input-sm text-right number">
-                                        </div>
-                                    </div>
-                                    <div class="col-1">
-                                        <div class="form-group">
-                                            <label for="quantity_det">Cantidad</label>
-                                            <input type="text" name="quantity_det" id="quantity_det" value="1"
-                                                class="form-control form-control-sm input-sm text-right number">
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label for="total_det">Total</label>
-                                            <input type="text" name="total_det" id="total_det"
-                                                class="form-control form-control-sm input-sm text-right number">
-                                        </div>
-                                    </div>
-                                    <div class="col-1">
-                                        <br>
-                                        <div class="form-group">
-                                            <button type="button" class="btn btn-sm btn-primary btn-add">Agregar</button>
+                                        <div class="col-1">
+                                            <br>
+                                            <div class="form-group">
+                                                <button type="button"
+                                                    class="btn btn-sm btn-primary btn-add">Agregar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -259,6 +271,18 @@
                                                     <td class="text-right" id="iva_sale">$0 </td>
                                                 </tr>
                                                 <tr>
+                                                    <td class="text-right" colspan="4">Sub-Total <input type="hidden"
+                                                            value="0" id="subtotal" name="subtotal"></td>
+                                                    <td class="text-right" id="sub_total_sale">$0 </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right" colspan="4">Descuento</td>
+                                                    <td class="text-right" id="discount_sale"><input type="text"
+                                                            class="form-control form-control-sm input-sm text-right number"
+                                                            name="discount" id="discount" value="0">
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td class="text-right" colspan="4">Total <input type="hidden"
                                                             value="0" id="total" name="total"></td>
                                                     <td class="text-right" id="total_sale">$0 </td>
@@ -280,12 +304,6 @@
     </div>
 @endsection
 @section('js')
-    <script src="{{ asset('plugins/input-mask/jquery.inputmask.bundle.min.js') }}"></script>
-    <script src="//momentjs.com/downloads/moment.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"
-        integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         $(document).ready(function() {
@@ -305,6 +323,7 @@
 
             let neto_sale = 0;
             let iva_sale = 0;
+            let sub_total_sale = 0;
             let total_sale = 0;
 
             let arrProducts = [];
@@ -460,7 +479,7 @@
                 var rowData = table.row($(this).parents('tr')).data()
                 changeScreen(true);
                 clearTable();
-                clearDetail();
+                clearDetail(true);
 
                 form.find('input[name="id"]').val(rowData.id)
 
@@ -475,30 +494,92 @@
                 var myDate = new Date(rowData.date);
                 form.find('input[name="date"]').val(myDate.toLocaleDateString('en-GB').replaceAll("/", "-"))
                 form.find('select[name="type"]').val(rowData.type)
+                form.find('textarea[name="observation"]').val(rowData.last_observation.observation)
 
                 neto_sale = Math.round(rowData.neto);
-                iva_sale += Math.round(rowData.tax);
-                total_sale += Math.round(rowData.total);
+                iva_sale = Math.round(rowData.tax);
+                discount = Math.round(rowData.discount);
+                $("#discount").val(discount);
+                sub_total_sale = Math.round(rowData.total) + discount;
                 updateTotal();
 
-                rowData.products.forEach(product => {
-                    var htmlTags = '<tr id="tr_' + product.id + '">' +
-                        '<td>' + product.id + '</td>' +
-                        '<td>' + product.name + '<br><b>Código:</b>' + product.code +
-                        '/<b>Marca:</b>' +
-                        product.brand.name + '</td>' +
-                        '<td class="text-right">' + product.pivot.quantity + '</td>' +
-                        '<td class="text-right">$' + parseFloat(product.pivot.price).toLocaleString(
-                            "de-DE") +
+                rowData.promotions.forEach(promotion => {
+                    let detail = "<b>Productos:</b><br> ";
+                    promotion.products.forEach(element => {
+                        detail += "-" + element.name + " / " + element.code + "<br>";
+                    });
+
+                    detail += "<b>Servicios:</b><br> ";
+                    promotion.services.forEach(element => {
+                        detail += "-" + element.name + " / " + element.code + "<br>";
+                    });
+
+                    var htmlTags = '<tr id="tr_pr_' + promotion.id + '">' +
+                        '<td>' + promotion.id + '</td>' +
+                        '<td>' + promotion.name + '<br><b>Código:</b>' + promotion.code +
+                        '/<b><br>Detalle:</b><br>' + detail +
                         '</td>' +
-                        '<td class="text-right"><input type="hidden" id="total_product_' +
-                        product.id + '" value="' +
-                        product.pivot.total +
-                        '"> $' + parseFloat(product.pivot.total).toLocaleString("de-DE") + '</td>' +
-                        '<td class="text-center"></td>' +
+                        '<td class="text-right">' + promotion.pivot.quantity + '</td>' +
+                        '<td class="text-right">$' + parseFloat(promotion.pivot.price)
+                        .toLocaleString("de-DE") +
+                        '</td>' +
+                        '<td class="text-right"><input type="hidden" id="total_promotion_' +
+                        promotion.id +
+                        '" value="' +
+                        promotion.pivot.total +
+                        '"> $' + parseFloat(promotion.pivot.total).toLocaleString("de-DE") +
+                        '</td>' +
+                        '<td class="text-center"><button class="btn btn-delete-promotion" type="button" data-param1="' +
+                        promotion.id + '"><i class="fa-solid fa-trash"></i></button></td>' +
                         '</tr>';
 
                     $('#sale tbody').append(htmlTags);
+                });
+
+                rowData.products.forEach(product => {
+                    if (product.pivot.total != 0) {
+                        var htmlTags = '<tr id="tr_' + product.id + '">' +
+                            '<td>' + product.id + '</td>' +
+                            '<td>' + product.name + '<br><b>Código:</b>' + product.code +
+                            '/<b>Marca:</b>' +
+                            product.brand.name + '</td>' +
+                            '<td class="text-right">' + product.pivot.quantity + '</td>' +
+                            '<td class="text-right">$' + parseFloat(product.pivot.price)
+                            .toLocaleString(
+                                "de-DE") +
+                            '</td>' +
+                            '<td class="text-right"><input type="hidden" id="total_product_' +
+                            product.id + '" value="' +
+                            product.pivot.total +
+                            '"> $' + parseFloat(product.pivot.total).toLocaleString("de-DE") +
+                            '</td>' +
+                            '<td class="text-center"></td>' +
+                            '</tr>';
+
+                        $('#sale tbody').append(htmlTags);
+                    }
+                });
+
+                rowData.services.forEach(service => {
+                    if (service.pivot.total != 0) {
+                        var htmlTags = '<tr id="tr_ser_' + service.id + '">' +
+                            '<td>' + service.id + '</td>' +
+                            '<td>' + service.name + '<br><b>Código:</b>' + service.code + '</td>' +
+                            '<td class="text-right">' + service.pivot.quantity + '</td>' +
+                            '<td class="text-right">$' + parseFloat(service.pivot.price)
+                            .toLocaleString(
+                                "de-DE") +
+                            '</td>' +
+                            '<td class="text-right"><input type="hidden" id="total_service_' +
+                            service.id + '" value="' +
+                            service.pivot.total +
+                            '"> $' + parseFloat(service.pivot.total).toLocaleString("de-DE") +
+                            '</td>' +
+                            '<td class="text-center"></td>' +
+                            '</tr>';
+
+                        $('#sale tbody').append(htmlTags);
+                    }
                 });
 
                 modal.modal()
@@ -510,11 +591,65 @@
                 total = Math.round(total);
                 neto_sale -= Math.round(total - (total * 0.19));
                 iva_sale -= Math.round(total * 0.19);
-                total_sale -= total;
+                sub_total_sale -= total;
                 updateTotal();
 
                 $("#tr_" + id).remove();
 
+                arrProducts.forEach(function(element, index) {
+                    if (element[0] == id && element[3] == total) {
+                        arrProducts.splice(index, 1);
+                    }
+                });
+
+            })
+
+            $(document).on('click', '.btn-delete-service', function() {
+                let id = $(this).data("param1");
+                let total = $("#total_service_" + id).val();
+                total = Math.round(total);
+                neto_sale -= Math.round(total - (total * 0.19));
+                iva_sale -= Math.round(total * 0.19);
+                sub_total_sale -= total;
+                updateTotal();
+
+                $("#tr_ser_" + id).remove();
+
+                arrServices.forEach(function(element, index) {
+                    if (element[0] == id && element[3] == total) {
+                        arrServices.splice(index, 1);
+                    }
+                });
+            })
+
+            $(document).on('click', '.btn-delete-promotion', function() {
+                let id = $(this).data("param1");
+                let total = $("#total_promotion_" + id).val();
+                total = Math.round(total);
+                neto_sale -= Math.round(total - (total * 0.19));
+                iva_sale -= Math.round(total * 0.19);
+                sub_total_sale -= total;
+                updateTotal();
+
+                $("#tr_pr_" + id).remove();
+
+                arrPromotions.forEach(function(element, index) {
+                    if (element[0] == id && element[3] == total) {
+                        arrPromotions.splice(index, 1);
+                    }
+                });
+
+                arrServices.forEach(function(element, index) {
+                    if (element[4] == id && element[3] == 0) {
+                        arrServices.splice(index, 1);
+                    }
+                });
+
+                arrProducts.forEach(function(element, index) {
+                    if (element[4] == id && element[3] == 0) {
+                        arrProducts.splice(index, 1);
+                    }
+                });
             })
 
             $(document).on('blur', '#quantity_det', function() {
@@ -528,6 +663,11 @@
             $(document).on('blur', '#total_det', function() {
                 calculateDetail(3);
             })
+
+            $(document).on('blur', '#discount', function() {
+                updateTotal();
+            })
+
 
             function calculateDetail(option) {
                 let quantity = ($("#quantity_det").val()).replaceAll("_", "");
@@ -563,9 +703,13 @@
                 form.trigger('reset')
                 neto_sale = 0;
                 iva_sale = 0;
+                sub_total_sale = 0;
                 total_sale = 0;
+                arrProducts = [];
+                arrServices = [];
+                arrPromotions = [];
                 updateTotal();
-                clearDetail();
+                clearDetail(true);
                 clearTable();
                 changeScreen(false);
             }
@@ -635,15 +779,15 @@
                 total = Math.round(total);
                 neto_sale += Math.round(total - (total * 0.19));
                 iva_sale += Math.round((total * 0.19));
-                total_sale += Math.round(total);
+                sub_total_sale += Math.round(total);
 
-                let arrProduct = [product_id, quantity, price, total];
+                let arrProduct = [product_id, quantity, price, total, 0];
                 arrProducts.push(arrProduct);
 
                 ///actualizo totales
                 updateTotal();
                 //limpio detalle
-                clearDetail()
+                clearDetail(false)
 
                 var htmlTags = '<tr id="tr_' + product_id + '">' +
                     '<td>' + product_id + '</td>' +
@@ -709,20 +853,20 @@
                 total = Math.round(total);
                 neto_sale += Math.round(total - (total * 0.19));
                 iva_sale += Math.round((total * 0.19));
-                total_sale += Math.round(total);
+                sub_total_sale += Math.round(total);
 
 
                 let detail = "<b>Productos:</b><br> ";
                 data[0].products.forEach(element => {
                     detail += "-" + element.name + " / " + element.code + "<br>";
-                    let arrProduct = [element.id, element.pivot.quantity, 0, 0];
+                    let arrProduct = [element.id, element.pivot.quantity, 0, 0, promotion_id];
                     arrProducts.push(arrProduct);
                 });
 
                 detail += "<b>Servicios:</b><br> ";
                 data[0].services.forEach(element => {
                     detail += "-" + element.name + " / " + element.code + "<br>";
-                    let arrService = [element.id, element.pivot.quantity, 0, 0];
+                    let arrService = [element.id, element.pivot.quantity, 0, 0, promotion_id];
                     arrServices.push(arrService);
                 });
 
@@ -732,7 +876,7 @@
                 ///actualizo totales
                 updateTotal();
                 //limpio detalle
-                clearDetail()
+                clearDetail(false)
 
                 var htmlTags = '<tr id="tr_pr_' + promotion_id + '">' +
                     '<td>' + promotion_id + '</td>' +
@@ -752,17 +896,102 @@
 
             }
 
+            function addService() {
+                let data = $('#service_id_det').select2('data')
+                if (data.length == 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Error",
+                        html: "Debe agregar Servicio"
+                    })
+                    return false;
+                }
+                let service_name = data[0].name;
+                let code = data[0].code;
+                let service_id = $("#service_id_det").val();
+                let quantity = ($("#service_quantity_det").val()).replaceAll("_", "");
+                let price = ($("#service_price_det").val()).replaceAll("_", "");
+                let total = ($("#service_total_det").val()).replaceAll("_", "");
+
+
+                if (service_id == 0 || service_id == null) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Error",
+                        html: "Debe agregar servicio"
+                    })
+                    return false;
+                }
+
+                if (quantity == 0 || quantity == "") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Error",
+                        html: "Debe agregar cantidad"
+                    })
+                    return false;
+                }
+
+                if ((price == 0 || price == "") && (total == 0 || total == "")) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Error",
+                        html: "Debe agregar valores"
+                    })
+                    return false;
+                }
+
+                total = Math.round(total);
+                neto_sale += Math.round(total - (total * 0.19));
+                iva_sale += Math.round((total * 0.19));
+                sub_total_sale += Math.round(total);
+
+                let arrService = [service_id, quantity, price, total, 0];
+                arrServices.push(arrService);
+
+                ///actualizo totales
+                updateTotal();
+                //limpio detalle
+                clearDetail(false)
+
+                var htmlTags = '<tr id="tr_ser_' + service_id + '">' +
+                    '<td>' + service_id + '</td>' +
+                    '<td>' + service_name + '<br><b>Código:</b>' + code + '/<b>' +
+                    '</td>' +
+                    '<td class="text-right">' + quantity + '</td>' +
+                    '<td class="text-right">$' + parseFloat(price).toLocaleString("de-DE") + '</td>' +
+                    '<td class="text-right"><input type="hidden" id="total_service_' + service_id +
+                    '" value="' +
+                    total +
+                    '"> $' + parseFloat(total).toLocaleString("de-DE") + '</td>' +
+                    '<td class="text-center"><button class="btn btn-delete-service" type="button" data-param1="' +
+                    service_id + '"><i class="fa-solid fa-trash"></i></button></td>' +
+                    '</tr>';
+
+                $('#sale tbody').append(htmlTags);
+
+            }
+
             function updateTotal() {
                 $("#neto").val(neto_sale);
                 $("#tax").val(iva_sale);
-                $("#total").val(total_sale);
+                $("#sub_total").val(sub_total_sale);
                 $("#neto_sale").html("$" + parseFloat(neto_sale).toLocaleString("de-DE"));
                 $("#iva_sale").html("$" + parseFloat(iva_sale).toLocaleString("de-DE"));
+                $("#sub_total_sale").html("$" + parseFloat(sub_total_sale).toLocaleString("de-DE"));
+                total_sale = sub_total_sale;
+                if ($("#discount").val() != 0) {
+                    total_sale = total_sale - Math.round($("#discount").val());
+                }
+                $("#total").val(total_sale);
                 $("#total_sale").html("$" + parseFloat(total_sale).toLocaleString("de-DE"));
             }
 
-            function clearDetail() {
-                $('#client_id').val(null).trigger('change');
+            function clearDetail(opc) {
+                if (opc) {
+                    $('#client_id').val(null).trigger('change');
+                }
+
                 //promociones
                 $('#promotion_id_det').val(null).trigger('change');
                 $("#promotion_quantity_det").val("1");
@@ -804,6 +1033,10 @@
                 $(".btn-add").prop("disabled", option);
                 $(".btn-add-promotion").prop("disabled", option);
                 $(".btn-add-service").prop("disabled", option);
+
+                //div compra
+                (option ? $("#detail_sale").hide() : $("#detail_sale").show());
+
             }
 
             $(".select2-client").select2({

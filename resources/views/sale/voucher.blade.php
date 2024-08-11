@@ -16,7 +16,7 @@
     }
 </style>
 <div style="width: 58mm;padding: 0">
-    <h2>Eben-Ezer</h2>
+    <h2>Eben Ezer</h2>
     <p>Eben Ezer Automotriz SPA</p>
     <p>R.U.T 99.999.999-9</p>
     <p>Servicio Integral de Vehiculos</p>
