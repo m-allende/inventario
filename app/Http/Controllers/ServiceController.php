@@ -137,14 +137,12 @@ class ServiceController extends Controller
         $rules = [
             'name' => ['required',Rule::unique('services')->ignore($id),],
             'code' => ['required',Rule::unique('services')->ignore($id)],
-            'description' => ['required'],
         ];
 
 
         $messages =  [
             'name.required' => 'Debe ingresar Nombre',
             'code.required' => 'Debe ingresar Código',
-            'description.required' => 'Debe ingresar Descripción',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
