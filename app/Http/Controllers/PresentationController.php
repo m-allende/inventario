@@ -6,7 +6,6 @@ use App\Models\Presentation;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
 
 
 class PresentationController extends Controller
@@ -52,23 +51,12 @@ class PresentationController extends Controller
                 'errors' => $validator->messages(),
             ]);
         } else {
-            DB::beginTransaction();
-            try {
-                Presentation::create($request->all());
+            Presentation::create($request->all());
 
-                DB::commit();
-
-                return response()->json([
-                    'status' => 200,
-                    'errors' => $validator->messages(),
-                ]);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return response()->json([
-                    'status' => 400,
-                    'errors' => $e->getMessage()
-                ]);
-            }
+            return response()->json([
+                'status' => 200,
+                'errors' => $validator->messages(),
+            ]);
         }
     }
 
@@ -101,24 +89,13 @@ class PresentationController extends Controller
                 'errors' => $validator->messages(),
             ]);
         } else {
-            DB::beginTransaction();
-            try {
-                //codigo si no tiene error
-                Presentation::find($presentation->id)->update(request()->all());
+            //codigo si no tiene error
+            Presentation::find($presentation->id)->update(request()->all());
 
-                DB::commit();
-
-                return response()->json([
-                    'status' => 200,
-                    'errors' => $validator->messages(),
-                ]);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return response()->json([
-                    'status' => 400,
-                    'errors' => $e->getMessage()
-                ]);
-            }
+            return response()->json([
+                'status' => 200,
+                'errors' => $validator->messages(),
+            ]);
         }
     }
 
