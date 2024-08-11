@@ -81,27 +81,16 @@ class ProductController extends Controller
                 $date = explode("-",$input["expiration"]);
                 $input["expiration"] = $date[2]."-".$date[1]."-".$date[0];
             }
-            DB::beginTransaction();
-            try {
-                $product = Product::create($input);
+            $product = Product::create($input);
 
-                $price = new Price();
-                $price->price = 0;
-                $product->prices()->save($price);
+            $price = new Price();
+            $price->price = 0;
+            $product->prices()->save($price);
 
-                DB::commit();
-
-                return response()->json([
-                    'status' => 200,
-                    'errors' => $validator->messages(),
-                ]);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return response()->json([
-                    'status' => 400,
-                    'errors' => $e->getMessage()
-                ]);
-            }
+            return response()->json([
+                'status' => 200,
+                'errors' => $validator->messages(),
+            ]);
         }
     }
 
@@ -140,30 +129,19 @@ class ProductController extends Controller
                 $date = explode("-",$input["expiration"]);
                 $input["expiration"] = $date[2]."-".$date[1]."-".$date[0];
             }
-            DB::beginTransaction();
-            try {
-                //codigo si no tiene error
-                $product->update($input);
+            //codigo si no tiene error
+            $product->update($input);
 
-                if(!$product->prices()->exists()){
-                    $price = new Price();
-                    $price->price = 0;
-                    $product->prices()->save($price);
-                }
-
-                DB::commit();
-
-                return response()->json([
-                    'status' => 200,
-                    'errors' => $validator->messages(),
-                ]);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return response()->json([
-                    'status' => 400,
-                    'errors' => $e->getMessage()
-                ]);
+            if(!$product->prices()->exists()){
+                $price = new Price();
+                $price->price = 0;
+                $product->prices()->save($price);
             }
+
+            return response()->json([
+                'status' => 200,
+                'errors' => $validator->messages(),
+            ]);
         }
     }
 

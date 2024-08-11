@@ -6,7 +6,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -51,23 +50,12 @@ class CategoryController extends Controller
                 'errors' => $validator->messages(),
             ]);
         } else {
-            DB::beginTransaction();
-            try {
-                Category::create($request->all());
+            Category::create($request->all());
 
-                DB::commit();
-
-                return response()->json([
-                    'status' => 200,
-                    'errors' => $validator->messages(),
-                ]);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return response()->json([
-                    'status' => 400,
-                    'errors' => $e->getMessage()
-                ]);
-            }
+            return response()->json([
+                'status' => 200,
+                'errors' => $validator->messages(),
+            ]);
         }
     }
 
@@ -100,24 +88,13 @@ class CategoryController extends Controller
                 'errors' => $validator->messages(),
             ]);
         } else {
-            DB::beginTransaction();
-            try {
-                //codigo si no tiene error
-                Category::find($category->id)->update(request()->all());
+            //codigo si no tiene error
+            Category::find($category->id)->update(request()->all());
 
-                DB::commit();
-
-                return response()->json([
-                    'status' => 200,
-                    'errors' => $validator->messages(),
-                ]);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return response()->json([
-                    'status' => 400,
-                    'errors' => $e->getMessage()
-                ]);
-            }
+            return response()->json([
+                'status' => 200,
+                'errors' => $validator->messages(),
+            ]);
         }
     }
 
