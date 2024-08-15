@@ -27,4 +27,14 @@ class Service extends Model
     {
         return $this->morphOne(Price::class, "parent")->latestOfMany();
     }
+
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, "parent");
+    }
+
+    public function lastPhoto()
+    {
+        return $this->morphOne(Photo::class, "parent")->latestOfMany();
+    }
 }

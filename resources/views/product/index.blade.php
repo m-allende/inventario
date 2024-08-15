@@ -7,10 +7,16 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.css"
-        integrity="sha512-ClXpwbczwauhl7XC16/EFu3grIlYTpqTYOwqwAi7rNSqxmTqCpE8VS3ovG+qi61GoxSLnuomxzFXDNcPV1hvCQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* arreglo para mostrar autocomplete en modal! */
+        .pac-container {
+            z-index: 1061 !important;
+        }
+
+        .swal2-container {
+            z-index: 3000;
+        }
+    </style>
 @endsection
 
 
@@ -35,6 +41,7 @@
                                 <th>Presentación</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
+                                <th>Imagen</th>
                                 <th style="width: 20%">Opciones</th>
                             </tr>
                         </thead>
@@ -45,10 +52,8 @@
         </div>
     </div>
 
-
-
     <!--  -->
-    <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal" tabindex="-1" role="dialog" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <form class="form" action="" method="POST" autocomplete="off">
                 <div class="modal-content">
@@ -60,6 +65,24 @@
                             </div>
                             <div class="card-body card-body-gray">
                                 <div class="row">
+                                    <div class="col-12">
+                                        <div class="upload-msg">
+                                            Subir imagen para comenzar a cortar
+                                        </div>
+                                        <div class="upload-demo-wrap" style="display:none">
+                                            <div id="upload-demo"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="actions">
+                                            <a class="btn btn-primary file-btn">
+                                                <span>Nueva Imagen</span>
+                                                <input type="file" id="upload" value="Elegir una imagen"
+                                                    accept="image/*" />
+                                            </a>
+                                            <button type="button" class="btn btn-primary upload-result">Guardar</button>
+                                        </div>
+                                    </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="brand_id">Marca</label>
@@ -136,6 +159,51 @@
             var btnAdd = $('.add'),
                 btnSave = $('.btn-save'),
                 btnUpdate = $('.btn-update');
+            let image = "";
+
+            var $uploadCrop;
+
+            function readFile(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('.upload-demo').addClass('ready');
+                        $uploadCrop.croppie('bind', {
+                            url: e.target.result
+                        }).then(function() {
+                            console.log('jQuery bind complete');
+                        });
+                        $(".upload-demo-wrap").show();
+                        $(".upload-msg").hide();
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    swal("Sorry - you're browser doesn't support the FileReader API");
+                }
+            }
+
+            $uploadCrop = $('#upload-demo').croppie({
+                viewport: {
+                    width: 400,
+                    height: 400,
+                },
+                enableExif: true
+            });
+
+            $('#upload').on('change', function() {
+                readFile(this);
+            });
+            $('.upload-result').on('click', function(ev) {
+                ev.preventDefault();
+                $uploadCrop.croppie('result', {
+                    type: 'canvas',
+                    size: 'viewport'
+                }).then(function(resp) {
+                    image = resp;
+                });
+            });
 
             var table = $('#crud').DataTable({
                 ajax: 'product',
@@ -175,6 +243,19 @@
                     {
                         data: 'description',
                         name: 'description'
+                    },
+                    {
+                        data: 'last_photo.path',
+                        orderable: false,
+                        name: 'image',
+                        render: function(data, type, row) {
+                            if (data != null) {
+                                html = '<img src="' + data + '" width="80" heigth="80">';
+                            } else {
+                                html = '<img src="img/no-image.jpg" width="80" heigth="80">';
+                            }
+                            return html;
+                        }
                     },
                     {
                         data: 'action',
@@ -220,6 +301,9 @@
             btnSave.click(function(e) {
                 e.preventDefault();
                 var data = form.serialize()
+                if (image != "") {
+                    data = data + "&image=" + image;
+                }
                 console.log(data)
                 $.ajax({
                     type: "POST",
@@ -278,6 +362,18 @@
                 newOption = new Option(rowData.presentation.name, rowData.presentation.id, true, true);
                 $('#presentation_id').append(newOption).trigger('change');
 
+                $(".upload-demo-wrap").hide();
+                $(".upload-msg").show();
+
+                if (rowData.last_photo != null) {
+                    $(".upload-demo-wrap").show();
+                    $(".upload-msg").hide();
+                    $('.upload-demo').addClass('ready');
+                    $uploadCrop.croppie('bind', {
+                        url: rowData.last_photo.path
+                    })
+                }
+
                 if (rowData.expiration) {
                     var myDate = new Date(rowData.expiration);
                     form.find('input[name="expiration"]').val(myDate.toLocaleDateString('en-GB').replaceAll(
@@ -291,6 +387,9 @@
             btnUpdate.click(function() {
                 var formData = form.serialize() + '&_method=PUT&_token=' + token
                 var updateId = form.find('input[name="id"]').val()
+                if (image != "") {
+                    formData = formData + "&image=" + image;
+                }
                 $.ajax({
                     type: "POST",
                     url: "/product/" + updateId,

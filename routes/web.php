@@ -11,17 +11,27 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+
 
 Route::get('/', function () {
     return redirect('login');
 });
+*/
+
+Route::get('/', [App\Http\Controllers\SiteController::class, 'index'])->name('index');
+Route::get('/about', [App\Http\Controllers\SiteController::class, 'about'])->name('about');
+Route::get('/contact', [App\Http\Controllers\SiteController::class, 'contact'])->name('contact');
+Route::get('/catalog', [App\Http\Controllers\SiteController::class, 'catalog'])->name('catalog');
+Route::get('/services', [App\Http\Controllers\SiteController::class, 'services'])->name('services');
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('/user', App\Http\Controllers\UserController::class);
+    Route::resource('/role', App\Http\Controllers\RoleController::class);
+
     Route::resource('/brand', App\Http\Controllers\BrandController::class);
     Route::resource('/category', App\Http\Controllers\CategoryController::class);
     Route::resource('/presentation', App\Http\Controllers\PresentationController::class);

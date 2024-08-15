@@ -145,3 +145,38 @@
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     padding: 0 !important;
 }
+
+.upload-msg {
+    text-align: center;
+    padding: 20px;
+    font-size: 15px;
+    color: #aaa;
+    width: 260px;
+    margin: 10px auto;
+    border: 1px solid #aaa;
+}
+
+.upload-demo-wrap{
+    max-height: 700px;
+}
+
+.croopie-container{
+    max-height: 700px;
+}
+.croppie-container .cr-boundary{
+    max-height: 600px;
+}
+
+.file-btn {
+    position: relative;
+}
+.file-btn input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+

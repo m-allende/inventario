@@ -361,6 +361,11 @@ return [
                     'url'  => 'supplier',
                     'icon' => 'nav-icon far fa-circle',
                 ],
+                [
+                    'text' => 'Usuarios',
+                    'url'  => 'user',
+                    'icon' => 'nav-icon far fa-circle',
+                ],
             ],
         ],
     ],
@@ -496,9 +501,19 @@ return [
                     'location' => '/css/style.css',
                 ],
                 [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/css/croppie.css',
+                ],
+                [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '/js/custom.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/js/croppie.js',
                 ],
             ],
         ],

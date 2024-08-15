@@ -15,4 +15,14 @@ class Category extends Model
         'name',
         'description',
     ];
+
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, "parent");
+    }
+
+    public function lastPhoto()
+    {
+        return $this->morphOne(Photo::class, "parent")->latestOfMany();
+    }
 }

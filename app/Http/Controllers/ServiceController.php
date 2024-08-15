@@ -17,17 +17,17 @@ class ServiceController extends Controller
     {
         if ($request->ajax()) {
             if(is_array($request->search) && $request->search["value"] != null){
-                $values = Service::with(["lastPrice"])
+                $values = Service::with(["lastPrice", "lastPhoto"])
                                 ->where('name', "like", '%' . $request->search["value"] . '%')
                                 ->orWhere('code', "like", '%' . $request->search["value"] . '%')
                                 ->get();
             }else if($request->search != null && !is_array($request->search)){
-                $values = Service::with(["lastPrice"])
+                $values = Service::with(["lastPrice", "lastPhoto"])
                                 ->where('name', "like", '%' . $request->search . '%')
                                 ->orWhere('code', "like", '%' . $request->search . '%')
                                 ->get();
             }else{
-                $values = Service::with(["lastPrice"])->get();
+                $values = Service::with(["lastPrice", "lastPhoto"])->get();
             }
 
             return datatables()->of($values)->toJson();
@@ -63,6 +63,18 @@ class ServiceController extends Controller
             $price = new Price();
             $price->price = 0;
             $service->prices()->save($price);
+
+            if(isset($input["image"])){
+                $image = $input["image"];
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace(' ', '+', $image);
+                $imageName = time() .'.'.'jpg';
+                \File::put(public_path('img/upl/'). $imageName, base64_decode($image));
+
+                $photo = new Photo();
+                $photo->path = 'img/upl/'. $imageName;
+                $service->photos()->save($photo);
+            }
 
             return response()->json([
                 'status' => 200,
@@ -109,6 +121,18 @@ class ServiceController extends Controller
                 $price = new Price();
                 $price->price = 0;
                 $service->prices()->save($price);
+            }
+
+            if(isset($input["image"])){
+                $image = $input["image"];
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace(' ', '+', $image);
+                $imageName = time() .'.'.'jpg';
+                \File::put(public_path('img/upl/'). $imageName, base64_decode($image));
+
+                $photo = new Photo();
+                $photo->path = 'img/upl/'. $imageName;
+                $product->photos()->save($photo);
             }
 
             return response()->json([

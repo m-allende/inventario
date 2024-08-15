@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Price;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
@@ -20,7 +21,7 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
             if(is_array($request->search) && $request->search["value"] != null){
-                $values = Product::with(["brand", "category", "presentation", "lastPrice"])
+                $values = Product::with(["brand", "category", "presentation", "lastPrice", "lastPhoto"])
                                 ->where('name', "like", '%' . $request->search["value"] . '%')
                                 ->orWhere('code', "like", '%' . $request->search["value"] . '%')
                                 ->orWhereHas("brand", function($query) use($request){
@@ -31,7 +32,7 @@ class ProductController extends Controller
                                 })
                                 ->get();
             }else if($request->search != null && !is_array($request->search)){
-                $values = Product::with(["brand", "category", "presentation", "lastPrice"])
+                $values = Product::with(["brand", "category", "presentation", "lastPrice", "lastPhoto"])
                                 ->where('name', "like", '%' . $request->search . '%')
                                 ->orWhere('code', "like", '%' . $request->search . '%')
                                 ->orWhereHas("brand", function($query) use($request){
@@ -42,7 +43,7 @@ class ProductController extends Controller
                                 })
                                 ->get();
             }else{
-                $values = Product::with(["brand", "category", "presentation", "lastPrice"])->get();
+                $values = Product::with(["brand", "category", "presentation", "lastPrice", "lastPhoto"])->get();
             }
 
             return datatables()->of($values)
@@ -88,6 +89,18 @@ class ProductController extends Controller
                 $price = new Price();
                 $price->price = 0;
                 $product->prices()->save($price);
+
+                if(isset($input["image"])){
+                    $image = $input["image"];
+                    $image = str_replace('data:image/png;base64,', '', $image);
+                    $image = str_replace(' ', '+', $image);
+                    $imageName = time() .'.'.'jpg';
+                    \File::put(public_path('img/upl/'). $imageName, base64_decode($image));
+
+                    $photo = new Photo();
+                    $photo->path = 'img/upl/'. $imageName;
+                    $product->photos()->save($photo);
+                }
 
                 DB::commit();
 
@@ -149,6 +162,18 @@ class ProductController extends Controller
                     $price = new Price();
                     $price->price = 0;
                     $product->prices()->save($price);
+                }
+
+                if(isset($input["image"])){
+                    $image = $input["image"];
+                    $image = str_replace('data:image/png;base64,', '', $image);
+                    $image = str_replace(' ', '+', $image);
+                    $imageName = time() .'.'.'jpg';
+                    \File::put(public_path('img/upl/'). $imageName, base64_decode($image));
+
+                    $photo = new Photo();
+                    $photo->path = 'img/upl/'. $imageName;
+                    $product->photos()->save($photo);
                 }
 
                 DB::commit();
