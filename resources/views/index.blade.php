@@ -66,8 +66,8 @@
                             <p class="text-white wow-outer"><span class="wow slideInDown"
                                     data-wow-delay=".35s">Diferentes Servicios para ustedes al precio justo</span></p>
                             <div class="wow-outer button-outer"><a
-                                    class="button button-md button-primary button-winona wow slideInDown" href="#"
-                                    data-wow-delay=".4s">Ver Servicios</a></div>
+                                    class="button button-md button-primary button-winona wow slideInDown"
+                                    href="{{ route('services') }}" data-wow-delay=".4s">Ver Servicios</a></div>
                         </div>
                     </div>
                 </div>
@@ -84,8 +84,8 @@
                             <p class="text-white wow-outer"><span class="wow slideInDown"
                                     data-wow-delay=".35s">Productos para su vehiculo</span></p>
                             <div class="wow-outer button-outer"><a
-                                    class="button button-md button-primary button-winona wow slideInDown" href="#"
-                                    data-wow-delay=".4s">Ver Productos</a></div>
+                                    class="button button-md button-primary button-winona wow slideInDown"
+                                    href="{{ route('catalog') }}" data-wow-delay=".4s">Ver Productos</a></div>
                         </div>
                     </div>
                 </div>

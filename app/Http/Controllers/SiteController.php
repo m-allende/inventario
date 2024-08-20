@@ -21,7 +21,7 @@ class SiteController extends Controller
                             })
                             ->take(6)
                             ->get();
-        $categories = Category::with(["lastPhoto"])->take(6)->get();
+        $categories = Category::with(["lastPhoto"])->take(8)->get();
         $services = Service::with(["lastPhoto"])->take(6)->get();
 
         return view('index', ['products' => $products, 'categories' => $categories, 'services' => $services]);

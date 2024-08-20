@@ -209,8 +209,8 @@ class ProductController extends Controller
     public function validator(Request $request, $id)
     {
         $rules = [
-            'name' => ['required',Rule::unique('products')->ignore($id),],
-            'code' => ['required',Rule::unique('products')->ignore($id)],
+            'name' => ['required'],
+            'code' => ['required'],
             'brand_id' => ['required'],
             'category_id' => ['required'],
             'presentation_id' => ['required'],
