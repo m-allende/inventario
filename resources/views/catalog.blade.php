@@ -229,12 +229,19 @@
                     '</a></li>';
                 pages = Math.round(data / take);
                 pages = pages == 0 ? 1 : pages;
+                let count = 0;
                 for (let index = 1; index <= pages; index++) {
-                    if (index == page) {
-                        html += '<li class="page-item active"><a class="page-link" href="#">' + index + '</a></li>';
+                    if (count <= 3 || count >= (pages - 3) || index == page) {
+                        if (index == page) {
+                            html += '<li class="page-item active"><a class="page-link" href="#">' + index +
+                                '</a></li>';
+                        } else {
+                            html += '<li class="page-item"><a class="page-link" href="#">' + index + '</a></li>';
+                        }
                     } else {
-                        html += '<li class="page-item"><a class="page-link" href="#">' + index + '</a></li>';
+                        index = pages - 3;
                     }
+                    count = count + 1;
                 }
                 html += '<a class="page-link" href="#" aria-label="Next">' +
                     '<span aria-hidden="true">»</span>' +
