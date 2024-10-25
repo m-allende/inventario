@@ -104,7 +104,9 @@ class SiteController extends Controller
                     ->orderby($orderby, $orderdir)
                     ->get();
 
-            return $products;
+            $data["products"] = $products;
+            $data["count"] = $products->count();
+            return $data;
         }
         $categories = Category::with(["lastPhoto"])
                                 ->take(6)

@@ -175,8 +175,8 @@
                     url: "{{ route('catalog') }}",
                     data: '_token=' + token + data,
                     success: function(data) {
-                        drawProducts(data);
-                        drawPagination(data);
+                        drawProducts(data.products);
+                        drawPagination(data.count);
                     },
                     error: function(data) {
                         Swal.fire({
@@ -227,7 +227,7 @@
                     '<span aria-hidden="true">«</span>' +
                     '<span class="sr-only">Previous</span>' +
                     '</a></li>';
-                pages = Math.round(data.length / take);
+                pages = Math.round(data / take);
                 pages = pages == 0 ? 1 : pages;
                 for (let index = 1; index <= pages; index++) {
                     if (index == page) {

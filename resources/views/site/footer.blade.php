@@ -21,51 +21,43 @@
                 <div class="col-sm-5 col-md-7 col-lg-4">
                     <h5 class="font-weight-bold text-uppercase text-white">Galeria</h5>
                     <div class="row row-x-10" data-lightgallery="group">
-                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal"
-                                href="images/gallery-original-1.jpg" data-lightgallery="item"><img
-                                    class="thumbnail-minimal-image" src="images/footer-gallery-1-85x85.jpg"
+                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="img/producto-1.jpeg"
+                                data-lightgallery="item"><img class="thumbnail-minimal-image" src="img/producto-1.jpeg"
                                     alt="" />
                                 <div class="thumbnail-minimal-caption"></div>
                             </a></div>
-                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal"
-                                href="images/gallery-original-2.jpg" data-lightgallery="item"><img
-                                    class="thumbnail-minimal-image" src="images/footer-gallery-2-85x85.jpg"
+                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="img/producto-2.jpeg"
+                                data-lightgallery="item"><img class="thumbnail-minimal-image" src="img/producto-2.jpeg"
                                     alt="" />
                                 <div class="thumbnail-minimal-caption"></div>
                             </a></div>
-                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal"
-                                href="images/gallery-original-3.jpg" data-lightgallery="item"><img
-                                    class="thumbnail-minimal-image" src="images/footer-gallery-3-85x85.jpg"
+                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="img/producto-3.jpeg"
+                                data-lightgallery="item"><img class="thumbnail-minimal-image" src="img/producto-3.jpeg"
                                     alt="" />
                                 <div class="thumbnail-minimal-caption"></div>
                             </a></div>
-                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal"
-                                href="images/gallery-original-4.jpg" data-lightgallery="item"><img
-                                    class="thumbnail-minimal-image" src="images/footer-gallery-4-85x85.jpg"
+                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="img/producto-4.jpeg"
+                                data-lightgallery="item"><img class="thumbnail-minimal-image" src="img/producto-4.jpeg"
                                     alt="" />
                                 <div class="thumbnail-minimal-caption"></div>
                             </a></div>
-                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal"
-                                href="images/gallery-original-5.jpg" data-lightgallery="item"><img
-                                    class="thumbnail-minimal-image" src="images/footer-gallery-5-85x85.jpg"
+                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="img/producto-5.jpeg"
+                                data-lightgallery="item"><img class="thumbnail-minimal-image" src="img/producto-5.jpeg"
                                     alt="" />
                                 <div class="thumbnail-minimal-caption"></div>
                             </a></div>
-                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal"
-                                href="images/gallery-original-6.jpg" data-lightgallery="item"><img
-                                    class="thumbnail-minimal-image" src="images/footer-gallery-6-85x85.jpg"
+                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="img/producto-6.jpeg"
+                                data-lightgallery="item"><img class="thumbnail-minimal-image" src="img/producto-6.jpeg"
                                     alt="" />
                                 <div class="thumbnail-minimal-caption"> </div>
                             </a></div>
-                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal"
-                                href="images/gallery-original-7.jpg" data-lightgallery="item"><img
-                                    class="thumbnail-minimal-image" src="images/footer-gallery-7-85x85.jpg"
+                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="img/producto-7.jpeg"
+                                data-lightgallery="item"><img class="thumbnail-minimal-image" src="img/producto-7.jpeg"
                                     alt="" />
                                 <div class="thumbnail-minimal-caption"></div>
                             </a></div>
-                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal"
-                                href="images/gallery-original-8.jpg" data-lightgallery="item"><img
-                                    class="thumbnail-minimal-image" src="images/footer-gallery-8-85x85.jpg"
+                        <div class="col-3 col-sm-4 col-md-3"><a class="thumbnail-minimal" href="img/producto-8.jpeg"
+                                data-lightgallery="item"><img class="thumbnail-minimal-image" src="img/producto-8.jpeg"
                                     alt="" />
                                 <div class="thumbnail-minimal-caption"></div>
                             </a></div>
