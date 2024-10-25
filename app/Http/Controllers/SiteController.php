@@ -104,8 +104,27 @@ class SiteController extends Controller
                     ->orderby($orderby, $orderdir)
                     ->get();
 
+            $products_count = Product::with(["brand", "category", "presentation", "lastPrice", "lastPhoto"])
+                    ->withAggregate('lastPrice','price')
+                    ->where(function ($query) use($search, $category, $brand){
+                        if($search != ""){
+                            $query->where('name', "like", "%". $search. "%");
+                        }
+                        if($category != 0){
+                            $query->where('category_id', "=", $category);
+                        }
+                        if($brand != 0){
+                            $query->where('brand_id', "=", $brand);
+                        }
+                    })
+                    ->whereHas('lastPrice', function ($query) use($price_range) {
+                        $query->where('price', '>', '0')
+                                ->whereBetween('price', $price_range);
+                    })
+                    ->get();
+
             $data["products"] = $products;
-            $data["count"] = $products->count();
+            $data["count"] = $products_count->count();
             return $data;
         }
         $categories = Category::with(["lastPhoto"])
