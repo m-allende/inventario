@@ -215,10 +215,11 @@
                 refreshProducts();
             });
 
-            $('.page-number').on('click', function() {
+            $(document).on('click', '.page-number', function(e) {
+                e.preventDefault();
                 page = parseInt($(this).data("param1")) + 1;
                 refreshProducts();
-            });
+            })
 
             $(".txtcol").click(function(e) {
                 e.preventDefault();
