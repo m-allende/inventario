@@ -128,7 +128,6 @@ class SiteController extends Controller
             return $data;
         }
         $categories = Category::with(["lastPhoto"])
-                                ->take(6)
                                 ->get();
 
         $prod_by_category = Product::selectRaw("count(id) as quantity, category_id as category")
@@ -138,7 +137,7 @@ class SiteController extends Controller
                                 ->groupby("category_id")
                                 ->get();
 
-        $brands = Brand::take(6)->get();
+        $brands = Brand::get();
 
         $prod_by_brand = Product::selectRaw("count(id) as quantity, brand_id as brand")
                                 ->whereHas('lastPrice', function ($query) {

@@ -104,6 +104,22 @@
                         </div>
                     </div>
                 </div>
+                <div class="swiper-slide" data-slide-bg="img/Team1.jpeg">
+                    <div class="container">
+                        <div class="jumbotron-classic-content">
+                            <div class="wow-outer">
+                                <div
+                                    class="title-docor-text font-weight-bold title-decorated text-uppercase wow slideInLeft text-white">
+                                    Equipo Comprometido</div>
+                            </div>
+                            <h1 class="text-uppercase text-white font-weight-bold wow-outer"><span
+                                    class="wow slideInDown" data-wow-delay=".2s">Satisfacción</span></h1>
+                            <p class="text-white wow-outer"><span class="wow slideInDown"
+                                    data-wow-delay=".35s">Tenemos un equipo comprometido con brindar el mejor servicio
+                                    para su vehiculo</span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="swiper-pagination-outer container">
                 <div class="swiper-pagination swiper-pagination-modern swiper-pagination-marked"

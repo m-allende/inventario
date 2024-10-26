@@ -35,6 +35,59 @@
         html.lt-ie-10 .ie-panel {
             display: block;
         }
+
+        /* styles for '...' */
+        .truncate {
+            /* hide text if it more than N lines  */
+            overflow: hidden;
+            /* for set '...' in absolute position */
+            position: relative;
+            /* use this value to count block height */
+            line-height: 1.2em;
+            /* max-height = line-height (1.2) * lines max number (3) */
+            max-height: 20em;
+            /* fix problem when last visible word doesn't adjoin right side  */
+            text-align: justify;
+            /* place for '...' */
+            margin-right: -1em;
+            padding-right: 1em;
+        }
+
+        /* create the ... */
+        .truncate:before {
+            /* points in the end */
+            content: '...';
+            /* absolute position */
+            position: absolute;
+            /* set position to right bottom corner of block */
+            right: 0;
+            bottom: 0;
+        }
+
+        /* hide ... if we have text, which is less than or equal to max lines
+*/
+        .truncate:after {
+            /* points in the end */
+            content: '';
+            /* absolute position */
+            position: absolute;
+            /* set position to right bottom corner of text */
+            right: 0;
+            /* set width and height */
+            width: 1em;
+            height: 1em;
+            margin-top: 0.2em;
+            /* bg color = bg color under block */
+            background: white;
+        }
+
+        .txtcol a {
+            cursor: pointer;
+        }
+
+        .txtcol a {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -162,6 +215,21 @@
                 refreshProducts();
             });
 
+            $('.page-number').on('click', function() {
+                page = parseInt($(this).data("param1")) + 1;
+                refreshProducts();
+            });
+
+            $(".txtcol").click(function(e) {
+                e.preventDefault();
+                if ($(this).prev().hasClass("truncate")) {
+                    $(this).children('a').text("Ver Menos");
+                } else {
+                    $(this).children('a').text("Ver Más");
+                }
+                $(this).prev().toggleClass("truncate");
+            });
+
             function refreshProducts() {
                 data = "&take=" + take;
                 data += "&page=" + page;
@@ -233,10 +301,12 @@
                 for (let index = 1; index <= pages; index++) {
                     if (count <= 3 || count >= (pages - 3) || index == page) {
                         if (index == page) {
-                            html += '<li class="page-item active"><a class="page-link" href="#">' + index +
+                            html += '<li class="page-item active"><a class="page-link page-number" data-param1="' +
+                                index + '" href="#">' + index +
                                 '</a></li>';
                         } else {
-                            html += '<li class="page-item"><a class="page-link" href="#">' + index + '</a></li>';
+                            html += '<li class="page-item"><a class="page-link page-number" data-param1="' +
+                                index + '" href="#">' + index + '</a></li>';
                         }
                     } else {
                         index = pages - 3;

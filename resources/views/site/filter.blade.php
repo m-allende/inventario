@@ -1,6 +1,6 @@
 <div class="col-lg-3 col-md-12 mt-5">
     <!-- category Start -->
-    <div class="border-bottom mb-4 pb-4">
+    <div class="border-bottom pb-4 truncate">
         <h5 class="font-weight-semi-bold mb-4">Filtrar por Categoria</h5>
         <form>
             <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
@@ -31,9 +31,12 @@
             @endforeach
         </form>
     </div>
+    @if (sizeof($categories) > 6)
+        <div class="txtcol mb-4 text-center"><a class="rd-nav-link" href="#">Ver Más</a></div>
+    @endif
     <!-- category End -->
     <!-- brand Start -->
-    <div class="border-bottom mb-4 pb-4">
+    <div class="border-bottom pb-4 truncate">
         <h5 class="font-weight-semi-bold mb-4">Filtrar por Marcas</h5>
         <form>
             <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
@@ -64,6 +67,10 @@
             @endforeach
         </form>
     </div>
+    @if (sizeof($brands) > 6)
+        <div class="txtcol mb-4 text-center"><a class="rd-nav-link" href="#">Ver Más</a></div>
+    @endif
+
     <!-- category End -->
     <!-- Price Start -->
     <div class="border-bottom mb-4 pb-4">
