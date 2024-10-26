@@ -217,7 +217,19 @@
 
             $(document).on('click', '.page-number', function(e) {
                 e.preventDefault();
-                page = parseInt($(this).data("param1")) + 1;
+                page = parseInt($(this).data("param1"));
+                refreshProducts();
+            })
+
+            $(document).on('click', '.page-prev', function(e) {
+                e.preventDefault();
+                page = page - 1;
+                refreshProducts();
+            })
+
+            $(document).on('click', '.page-next', function(e) {
+                e.preventDefault();
+                page = page + 1;
                 refreshProducts();
             })
 
@@ -232,6 +244,15 @@
             });
 
             function refreshProducts() {
+                Swal.fire({
+                    title: "Favor Esperar",
+                    timer: 1000000,
+                    timerProgressBar: true,
+                    showCloseButton: true,
+                    didOpen: function() {
+                        Swal.showLoading()
+                    }
+                });
                 data = "&take=" + take;
                 data += "&page=" + page;
                 data += "&orderby=" + orderBy;
@@ -246,6 +267,7 @@
                     success: function(data) {
                         drawProducts(data.products);
                         drawPagination(data.count);
+                        Swal.close();
                     },
                     error: function(data) {
                         Swal.fire({
@@ -292,7 +314,7 @@
                 let html = '<nav aria-label="Page navigation" class="mt-5">' +
                     '<ul class="pagination justify-content-center mb-3">' +
                     '<li class="page-item disabled">' +
-                    '<a class="page-link" href="#" aria-label="Previous">' +
+                    '<a class="page-link page-prev" href="#" aria-label="Previous">' +
                     '<span aria-hidden="true">«</span>' +
                     '<span class="sr-only">Previous</span>' +
                     '</a></li>';
@@ -314,7 +336,7 @@
                     }
                     count = count + 1;
                 }
-                html += '<a class="page-link" href="#" aria-label="Next">' +
+                html += '<a class="page-link page-next" href="#" aria-label="Next">' +
                     '<span aria-hidden="true">»</span>' +
                     '<span class="sr-only">Next</span>' +
                     '</a></li></ul></nav>';
