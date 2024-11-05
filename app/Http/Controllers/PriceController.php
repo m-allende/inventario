@@ -18,9 +18,21 @@ class PriceController extends Controller
     {
         if ($request->ajax()) {
             if(is_array($request->search) && $request->search["value"] != null){
-                $values = Price::where('name', "like", '%' . $request->search["value"] . '%')->get();
+                $values = Price::with(["parent"])
+                                ->where('price', "like", '%' . $request->search["value"] . '%')
+                                ->orWhereHas("parent", function($query) use($request){
+                                    $query->where('name', "like", '%' . $request->search["value"] . '%')
+                                            ->orwhere('description', "like", '%' . $request->search["value"]. '%');
+                                })
+                                ->get();
             }else if($request->search != null && !is_array($request->search)){
-                $values = Price::where('name', "like", '%' . $request->search . '%')->get();
+                $values = Price::with(["parent"])
+                                ->where('price', "like", '%' . $request->search . '%')
+                                ->orWhereHas("parent", function($query) use($request){
+                                    $query->where('name', "like", '%' . $request->search. '%')
+                                            ->orwhere('description', "like", '%' . $request->search. '%');
+                                })
+                                ->get();
             }else{
                 $values = Price::with(["parent"])->get();
             }

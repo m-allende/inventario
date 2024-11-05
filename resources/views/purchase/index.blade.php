@@ -226,6 +226,9 @@
                     url: "{{ asset('json/datatable-ES.json') }}",
                 },
                 dom: 'Bftirp',
+                search: {
+                    return: true
+                },
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -615,6 +618,8 @@
                     data: function(params) {
                         var queryParameters = {
                             search: params.term,
+                            start: 0,
+                            length: 10
                         };
                         return queryParameters;
                     },

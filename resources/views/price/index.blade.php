@@ -105,6 +105,9 @@
                     url: "{{ asset('json/datatable-ES.json') }}",
                 },
                 dom: 'Bftirp',
+                search: {
+                    return: true
+                },
                 columns: [{
                         data: 'id',
                         name: 'id'
