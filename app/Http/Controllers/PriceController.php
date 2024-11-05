@@ -22,7 +22,8 @@ class PriceController extends Controller
                                 ->where('price', "like", '%' . $request->search["value"] . '%')
                                 ->orWhereHas("parent", function($query) use($request){
                                     $query->where('name', "like", '%' . $request->search["value"] . '%')
-                                            ->orwhere('description', "like", '%' . $request->search["value"]. '%');
+                                            ->orwhere('description', "like", '%' . $request->search["value"]. '%')
+                                            ->orwhere('code', "like", '%' . $request->search["value"]. '%');
                                 })
                                 ->get();
             }else if($request->search != null && !is_array($request->search)){
@@ -30,7 +31,8 @@ class PriceController extends Controller
                                 ->where('price', "like", '%' . $request->search . '%')
                                 ->orWhereHas("parent", function($query) use($request){
                                     $query->where('name', "like", '%' . $request->search. '%')
-                                            ->orwhere('description', "like", '%' . $request->search. '%');
+                                            ->orwhere('description', "like", '%' . $request->search. '%')
+                                            ->orwhere('code', "like", '%' . $request->search. '%');
                                 })
                                 ->get();
             }else{
