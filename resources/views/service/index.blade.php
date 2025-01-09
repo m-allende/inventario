@@ -57,6 +57,24 @@
                             </div>
                             <div class="card-body card-body-gray">
                                 <div class="row">
+                                    <div class="col-12">
+                                        <div class="upload-msg">
+                                            Subir imagen para comenzar a cortar
+                                        </div>
+                                        <div class="upload-demo-wrap" style="display:none">
+                                            <div id="upload-demo"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="actions">
+                                            <a class="btn btn-primary file-btn">
+                                                <span>Nueva Imagen</span>
+                                                <input type="file" id="upload" value="Elegir una imagen"
+                                                    accept="image/*" />
+                                            </a>
+                                            <button type="button" class="btn btn-primary upload-result">Guardar</button>
+                                        </div>
+                                    </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="code">Código</label>
@@ -97,6 +115,51 @@
                 btnSave = $('.btn-save'),
                 btnUpdate = $('.btn-update');
 
+            let image = "";
+
+            var $uploadCrop;
+
+            function readFile(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('.upload-demo').addClass('ready');
+                        $uploadCrop.croppie('bind', {
+                            url: e.target.result
+                        }).then(function() {
+                            console.log('jQuery bind complete');
+                        });
+                        $(".upload-demo-wrap").show();
+                        $(".upload-msg").hide();
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    swal("Sorry - you're browser doesn't support the FileReader API");
+                }
+            }
+
+            $uploadCrop = $('#upload-demo').croppie({
+                viewport: {
+                    width: 400,
+                    height: 400,
+                },
+                enableExif: true
+            });
+
+            $('#upload').on('change', function() {
+                readFile(this);
+            });
+            $('.upload-result').on('click', function(ev) {
+                ev.preventDefault();
+                $uploadCrop.croppie('result', {
+                    type: 'canvas',
+                    size: 'viewport'
+                }).then(function(resp) {
+                    image = resp;
+                });
+            });
             var table = $('#crud').DataTable({
                 ajax: 'service',
                 serverSide: true,
@@ -168,6 +231,9 @@
             btnSave.click(function(e) {
                 e.preventDefault();
                 var data = form.serialize()
+                if (image != "") {
+                    data = data + "&image=" + image;
+                }
                 console.log(data)
                 $.ajax({
                     type: "POST",
@@ -217,11 +283,26 @@
                 form.find('input[name="name"]').val(rowData.name)
                 form.find('textarea[name="description"]').val(rowData.description)
 
+                $(".upload-demo-wrap").hide();
+                $(".upload-msg").show();
+
+                if (rowData.last_photo != null) {
+                    $(".upload-demo-wrap").show();
+                    $(".upload-msg").hide();
+                    $('.upload-demo').addClass('ready');
+                    $uploadCrop.croppie('bind', {
+                        url: rowData.last_photo.path
+                    })
+                }
+
                 modal.modal()
             })
 
             btnUpdate.click(function() {
                 var formData = form.serialize() + '&_method=PUT&_token=' + token
+                if (image != "") {
+                    formData = formData + "&image=" + image;
+                }
                 var updateId = form.find('input[name="id"]').val()
                 $.ajax({
                     type: "POST",

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Models\Price;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
@@ -132,7 +133,7 @@ class ServiceController extends Controller
 
                 $photo = new Photo();
                 $photo->path = 'img/upl/'. $imageName;
-                $product->photos()->save($photo);
+                $service->photos()->save($photo);
             }
 
             return response()->json([
