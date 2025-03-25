@@ -352,6 +352,11 @@ return [
                     'icon' => 'nav-icon far fa-circle',
                 ],
                 [
+                    'text' => 'Estantes',
+                    'url'  => 'shelf',
+                    'icon' => 'nav-icon far fa-circle',
+                ],
+                [
                     'text' => 'Clientes',
                     'url'  => 'client',
                     'icon' => 'nav-icon far fa-circle',

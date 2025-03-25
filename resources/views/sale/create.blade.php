@@ -32,7 +32,7 @@
                                 <div class="col-2">
                                     <br>
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-sm btn-primary btn-add-promotion">Crear
+                                        <button type="button" class="btn btn-sm btn-primary btn-add-client">Crear
                                             Cliente</button>
                                     </div>
                                 </div>
@@ -271,14 +271,12 @@ Patente:
                 </div>
                 <div class="card-footer text-right">
                     <button type="button" class="btn btn-primary btn-save">Guardar</button>
-                    <button type="button" class="btn btn-primary" onclick="$('.modal').modal('show');">ver
-                        modal</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" id="modal_new">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body" id="print">
@@ -286,9 +284,77 @@ Patente:
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary btn-print">Imprimir</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary btn-close-voucher">Cerrar</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modalClient">
+        <div class="modal-dialog" role="document">
+            <form class="form form-client" action="" method="POST" autocomplete="off">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <input type="hidden" name="id">
+                        <div class="card card-secondary m-2">
+                            <div class="card-header sidebar-dark-primary">
+                                <h2 class="card-title">Datos Generales</h2>
+                            </div>
+                            <div class="card-body card-body-gray">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="identification">Identificación</label>
+                                            <input type="text" name="identification"
+                                                class="form-control form-control-sm input-sm">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="type">Tipo</label>
+                                            <select id="type" name="type"
+                                                class="form-control select2 form-control-sm"
+                                                data-dropdown-css-class="select2-danger" style="width: 100%;" tabindex="-1"
+                                                aria-hidden="true">
+                                                <option value="1">Persona</option>
+                                                <option value="2">Empresa</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label id ="lblName" for="name">Nombre</label>
+                                            <input type="text" name="name"
+                                                class="form-control form-control-sm input-sm">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="address">Dirección</label>
+                                            <input type="text" class="form-control form-control-sm" id="address"
+                                                name="address" placeholder="Dirección" value="">
+                                            <input name="addressLatitude" type="hidden" class="form-control"
+                                                id="addressLatitude" value="">
+                                            <input name="addressLongitude" type="hidden" class="form-control"
+                                                id="addressLongitude" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Telefono</label>
+                                            <input type="text" name="phone"
+                                                class="form-control form-control-sm input-sm">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="text" name="email"
+                                                class="form-control form-control-sm input-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-save-client">Guardar</button>
+                        <button type="button" class="btn btn-primary btn-update-client">Modificar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
@@ -303,11 +369,18 @@ Patente:
 
             let token = $('meta[name="csrf-token"]').attr('content');
             let form = $('.form');
+            let formClient = $('.form-client');
             let btnSave = $('.btn-save'),
                 btnAddProduct = $('.btn-add'),
                 btnAddPromotion = $('.btn-add-promotion'),
                 btnAddService = $('.btn-add-service'),
-                btnPrint = $('.btn-print');
+                btnAddClient = $('.btn-add-client'),
+                btnSaveClient = $('.btn-save-client'),
+                btnUpdateClient = $('.btn-update-client'),
+                btnPrint = $('.btn-print'),
+                btnCloseVoucher = $('.btn-close-voucher');
+
+            let modalClient = $('#modalClient');
 
             let neto_sale = 0;
             let iva_sale = 0;
@@ -334,6 +407,10 @@ Patente:
 
             btnAddService.click(function() {
                 addService();
+            })
+
+            btnAddClient.click(function() {
+                addClient();
             })
 
             btnSave.click(function(e) {
@@ -373,7 +450,7 @@ Patente:
                                         data: '_token=' + token,
                                         success: function(data) {
                                             $("#print").html(data);
-                                            $(".modal").modal('show');
+                                            $("#modal_new").modal('show');
                                         },
                                         error: function(data) {
                                             Swal.fire({
@@ -413,12 +490,54 @@ Patente:
                 }); //end ajax
             })
 
+            btnSaveClient.click(function(e) {
+                e.preventDefault();
+                var data = form.serialize()
+                console.log(data)
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('client.store') }}",
+                    data: data + '&_token=' + token,
+                    success: function(data) {
+                        if (data.status == 200) {
+                            //table.draw();
+                            $("#client_id").append(new Option(data.client.name, data.client.id, true, true)).trigger(
+                                'change');
+                            formClient.trigger("reset");
+                            modalClient.modal('hide');
+                        } else {
+                            var error = '';
+                            $.each(data.errors, function(key, err_values) {
+                                error += err_values
+                                error += '<br>';
+                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: "Error",
+                                html: error
+                            })
+                        }
+                    },
+                    error: function(data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Error",
+                            html: "Error al Grabar"
+                        })
+                    }
+                }); //end ajax
+            })
+
             btnPrint.click(function(e) {
                 let content = $("#print").html();
                 let contentOriginal = document.body.innerHTML;
                 document.body.innerHTML = content;
                 window.print();
                 document.body.innerHTML = contentOriginal;
+            })
+
+            btnCloseVoucher.click(function(e) {
+                $("#modal_new").modal('hide');
             })
 
             $(document).on('click', '.btn-delete-product', function() {
@@ -501,6 +620,30 @@ Patente:
                 calculateDetail(3);
             })
 
+            $(document).on('blur', '#promotion_quantity_det', function() {
+                calculatePromotionDetail(1);
+            })
+
+            $(document).on('blur', '#promotion_price_det', function() {
+                calculatePromotionDetail(2);
+            })
+
+            $(document).on('blur', '#promotion_total_det', function() {
+                calculatePromotionDetail(3);
+            })
+
+            $(document).on('blur', '#service_quantity_det', function() {
+                calculateServiceDetail(1);
+            })
+
+            $(document).on('blur', '#service_price_det', function() {
+                calculateServiceDetail(2);
+            })
+
+            $(document).on('blur', '#service_total_det', function() {
+                calculateServiceDetail(3);
+            })
+
             $(document).on('blur', '#discount', function() {
                 updateTotal();
             })
@@ -531,6 +674,62 @@ Patente:
 
                 $("#total_det").val(total);
                 $("#price_det").val(price);
+            }
+
+            function calculatePromotionDetail(option) {
+                let quantity = ($("#promotion_quantity_det").val()).replaceAll("_", "");
+                let price = ($("#promotion_price_det").val()).replaceAll("_", "");
+                let total = ($("#promotion_total_det").val()).replaceAll("_", "");
+                if (option == 1) {
+                    //quantity
+                    if (price != 0 && price != "") {
+                        total = quantity * price;
+                    }
+                    if (total != 0 && total != "") {
+                        price = total / quantity;
+                    }
+                } else if (option == 2) {
+                    //price
+                    if (price != 0 && price != "" && quantity != 0 && quantity != "") {
+                        total = quantity * price;
+                    }
+                } else {
+                    //total
+                    if (total != 0 && total != "" && quantity != 0 && quantity != "") {
+                        price = total / quantity;
+                    }
+                }
+
+                $("#promotion_total_det").val(total);
+                $("#promotion_price_det").val(price);
+            }
+
+            function calculateServiceDetail(option) {
+                let quantity = ($("#service_quantity_det").val()).replaceAll("_", "");
+                let price = ($("#service_price_det").val()).replaceAll("_", "");
+                let total = ($("#service_total_det").val()).replaceAll("_", "");
+                if (option == 1) {
+                    //quantity
+                    if (price != 0 && price != "") {
+                        total = quantity * price;
+                    }
+                    if (total != 0 && total != "") {
+                        price = total / quantity;
+                    }
+                } else if (option == 2) {
+                    //price
+                    if (price != 0 && price != "" && quantity != 0 && quantity != "") {
+                        total = quantity * price;
+                    }
+                } else {
+                    //total
+                    if (total != 0 && total != "" && quantity != 0 && quantity != "") {
+                        price = total / quantity;
+                    }
+                }
+
+                $("#service_total_det").val(total);
+                $("#service_price_det").val(price);
             }
 
             function addProduct() {
@@ -795,6 +994,14 @@ Patente:
 
             }
 
+            function addClient() {
+                modalClient.modal()
+                formClient.trigger('reset')
+                modalClient.find('.card-title').text('Agregar Nuevo')
+                btnSaveClient.show();
+                btnUpdateClient.hide()
+            }
+
             function updateTotal() {
                 if (sub_total_sale == 0) {
                     $("#discount").val(0);
@@ -892,6 +1099,7 @@ Patente:
                     data: function(params) {
                         var queryParameters = {
                             search: params.term,
+                            length: 10
                         };
                         return queryParameters;
                     },
@@ -931,6 +1139,7 @@ Patente:
                     data: function(params) {
                         var queryParameters = {
                             search: params.term,
+                            length: 10
                         };
                         return queryParameters;
                     },
@@ -970,6 +1179,7 @@ Patente:
                     data: function(params) {
                         var queryParameters = {
                             search: params.term,
+                            length: 10
                         };
                         return queryParameters;
                     },
@@ -1009,6 +1219,7 @@ Patente:
                     data: function(params) {
                         var queryParameters = {
                             search: params.term,
+                            length: 10
                         };
                         return queryParameters;
                     },
@@ -1160,7 +1371,7 @@ Patente:
 
         $(function() {
             $('#date').datetimepicker({
-                locale: 'es',
+                language: 'es',
                 format: 'DD-MM-yyyy'
             });
 

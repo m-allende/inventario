@@ -24,7 +24,11 @@ class ClientController extends Controller
             }else if($request->search != null && !is_array($request->search)){
                 $values = Client::with(["lastAddress", "lastEmail", "lastPhone"])->where('name', "like", '%' . $request->search . '%')->get();
             }else{
-                $values = Client::with(["lastAddress", "lastEmail", "lastPhone"])->get();
+                if($request->length){
+                    $values = Client::with(["lastAddress", "lastEmail", "lastPhone"])->limit($request->length)->get();
+                }else{
+                    $values = Client::with(["lastAddress", "lastEmail", "lastPhone"])->get();    
+                }
             }
 
             return datatables()->of($values)->toJson();
@@ -78,6 +82,7 @@ class ClientController extends Controller
                 return response()->json([
                     'status' => 200,
                     'errors' => $validator->messages(),
+                    'client' => $client
                 ]);
             } catch (\Exception $e) {
                 DB::rollback();

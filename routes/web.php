@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/service', App\Http\Controllers\ServiceController::class);
     Route::resource('/product', App\Http\Controllers\ProductController::class);
     Route::resource('/promotion', App\Http\Controllers\PromotionController::class);
+    Route::resource('/shelf', App\Http\Controllers\ShelfController::class);
 
     Route::resource('/purchase', App\Http\Controllers\PurchaseController::class);
     Route::resource('/sale', App\Http\Controllers\SaleController::class);

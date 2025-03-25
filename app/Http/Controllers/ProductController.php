@@ -43,7 +43,11 @@ class ProductController extends Controller
                                 })
                                 ->get();
             }else{
-                $values = Product::with(["brand", "category", "presentation", "lastPrice", "lastPhoto"])->get();
+                if($request->length && !$request->start){
+                    $values = Product::with(["brand", "category", "presentation", "lastPrice", "lastPhoto"])->limit($request->length)->get();
+                }else{
+                    $values = Product::with(["brand", "category", "presentation", "lastPrice", "lastPhoto"])->get();
+                }                
             }
 
             return datatables()->of($values)

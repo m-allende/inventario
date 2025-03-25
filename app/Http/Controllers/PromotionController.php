@@ -28,7 +28,11 @@ class PromotionController extends Controller
                                 ->orWhere('code', "like", '%' . $request->search . '%')
                                 ->get();
             }else{
-                $values = Promotion::with(["lastPrice", "products", "services"])->get();
+                if($request->length && !$request->start){
+                    $values = Promotion::with(["lastPrice", "products", "services"])->limit($request->length)->get();
+                }else{
+                    $values = Promotion::with(["lastPrice", "products", "services"])->get();
+                }
             }
 
             return datatables()->of($values)->toJson();

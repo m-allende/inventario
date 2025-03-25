@@ -28,7 +28,11 @@ class ServiceController extends Controller
                                 ->orWhere('code', "like", '%' . $request->search . '%')
                                 ->get();
             }else{
-                $values = Service::with(["lastPrice", "lastPhoto"])->get();
+                if($request->length && !$request->start){
+                    $values = Service::with(["lastPrice", "lastPhoto"])->limit($request->length)->get();
+                }else{
+                    $values = Service::with(["lastPrice", "lastPhoto"])->get();
+                }
             }
 
             return datatables()->of($values)->toJson();
