@@ -234,21 +234,25 @@ class ProductController extends Controller
         return $validator;
     }
 
-    public function stock($id){
+    public function stock($id)
+    {
         $purchases = DB::table('purchase_product')
-                    ->selectRaw('sum(quantity) as cantidad')
-                    ->where('product_id', "=", $id)
-                    ->first();
-        $stock = ($purchases->cantidad == null?0:$purchases->cantidad);
+            ->join('purchases', 'purchase_product.purchase_id', '=', 'purchases.id')
+            ->whereNull('purchases.deleted_at') // ignorar compras eliminadas (soft deletes)
+            ->where('purchase_product.product_id', $id)
+            ->selectRaw('SUM(purchase_product.quantity) as cantidad')
+            ->first();
+
+        $stock = $purchases->cantidad ?? 0;
 
         $sales = DB::table('product_sale')
-                    ->selectRaw('sum(quantity) as cantidad')
-                    ->where('product_id', "=", $id)
-                    ->first();
+            ->where('product_id', $id)
+            ->selectRaw('SUM(quantity) as cantidad')
+            ->first();
 
-        $remove = ($sales->cantidad == null?0:$sales->cantidad);
+        $remove = $sales->cantidad ?? 0;
 
-        $stock = $stock - $remove;
-        return $stock;
+        return $stock - $remove;
     }
+
 }

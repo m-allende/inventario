@@ -103,6 +103,9 @@ class PurchaseController extends Controller
      */
     public function destroy(Purchase $purchase)
     {
-        //
+        $deleted = $purchase->delete();
+        if ($deleted) {
+            return response()->json(['success' => true, 'message' => 'Compra eliminado correctamente.']);
+        }
     }
 }

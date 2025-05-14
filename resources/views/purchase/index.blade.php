@@ -273,6 +273,8 @@
                             html = '<div class="form-group">';
                             html +=
                                 '<a class="btn-edit" data-toggle="tooltip" data-placement="top" title="Ver" href="#"><button type="button" class="btn btn-sm btn-dt">Ver</button></a>&nbsp;';
+                            html +=
+                                '<a class="btn-delete" data-toggle="tooltip" data-placement="top" title="Anular Compra" href="#"><button type="button" class="btn btn-sm btn-dt">Anular Compra</button></a>&nbsp;';
                             return html;
                         }
                     },
@@ -393,6 +395,43 @@
 
                 modal.modal()
             })
+
+
+            $(document).on('click', '.btn-delete', function () {
+                let id = table.row($(this).parents('tr')).data().id;
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/purchase/' + id,
+                            type: 'DELETE',
+                            data: {
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire('Eliminado', response.message, 'success');
+                                    // Opcional: recargar tabla
+                                    $('#crud').DataTable().ajax.reload();
+                                } else {
+                                    Swal.fire('Error', 'No se pudo eliminar la compra.', 'error');
+                                }
+                            },
+                            error: function () {
+                                Swal.fire('Error', 'Ocurrió un error en el servidor.', 'error');
+                            }
+                        });
+                    }
+                });
+            });
+
 
             $(document).on('click', '.btn-delete-product', function() {
                 let id = $(this).data("param1");
